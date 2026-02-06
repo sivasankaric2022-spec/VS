@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Vickyy ❤ Sankari</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(135deg,#ffb6c1,#ffd1dc);
+  overflow:hidden;
+}
+
+/* 💕 FLOATING HEARTS */
+.hearts{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:0;
+}
+
+.heart{
+  position:absolute;
+  width:18px;
+  height:18px;
+  background:#ff4d6d;
+  transform:rotate(45deg);
+  animation:floatHeart 8s linear infinite;
+  opacity:0.7;
+}
+
+.heart::before,
+.heart::after{
+  content:'';
+  position:absolute;
+  width:18px;
+  height:18px;
+  background:#ff4d6d;
+  border-radius:50%;
+}
+
+.heart::before{ top:-9px; left:0; }
+.heart::after{ left:-9px; top:0; }
+
+@keyframes floatHeart{
+  0%{
+    transform:translateY(100vh) rotate(45deg);
+    opacity:0;
+  }
+  20%{opacity:0.8;}
+  100%{
+    transform:translateY(-10vh) rotate(45deg);
+    opacity:0;
+  }
+}
+
+/* keep main content above hearts */
+.envelope,
+.message-box{
+  position:relative;
+  z-index:2;
+}
+
+/* ENVELOPE */
+.envelope{
+  position:relative;
+  width:280px;
+  height:180px;
+  background:#ffc0cb;
+  cursor:pointer;
+  animation:float 2.5s ease-in-out infinite;
+}
+.envelope::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:#ff9eb5;
+  clip-path:polygon(0 0,50% 50%,100% 0,100% 100%,0 100%);
+}
+@keyframes float{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-10px);}
+}
+
+/* LETTER */
+.letter{
+  position:absolute;
+  top:10px;
+  left:10px;
+  width:260px;
+  height:160px;
+  background:#ffe6ee;
+  border-radius:12px;
+  padding:15px;
+  text-align:center;
+  display:none;
+  animation:pop 0.6s ease forwards;
+}
+@keyframes pop{
+  from{transform:scale(0.7);opacity:0;}
+  to{transform:scale(1);opacity:1;}
+}
+
+h2{ color:#d6336c; }
+p{ color:#444; font-size:16px; }
+
+/* MESSAGE BOX */
+.message-box{
+  background:#ffe6ee;
+  padding:25px;
+  border-radius:18px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+  text-align:center;
+  display:none;
+  animation:fadeUp 0.8s ease forwards;
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(30px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+button{
+  padding:10px 22px;
+  margin:10px;
+  border:none;
+  border-radius:25px;
+  font-size:16px;
+  cursor:pointer;
+}
+.yes{background:#ff4d6d;color:white;}
+.no{background:#ccc;}
+
+img{
+  width:220px;
+  border-radius:15px;
+  margin-top:15px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
+
+audio{display:none;}
+</style>
+</head>
+
+<body>
+
+<!-- 💕 HEARTS -->
+<div class="hearts">
+  <div class="heart" style="left:10%; animation-delay:0s;"></div>
+  <div class="heart" style="left:30%; animation-delay:2s;"></div>
+  <div class="heart" style="left:50%; animation-delay:4s;"></div>
+  <div class="heart" style="left:70%; animation-delay:1s;"></div>
+  <div class="heart" style="left:90%; animation-delay:3s;"></div>
+</div>
+
+<!-- ENVELOPE -->
+<div class="envelope" onclick="openLetter()">
+  <div class="letter" id="letter">
+    <h2>💌 Hello Vickyy</h2>
+    <p>Sankari wants to see a beautiful smile on your face 😊💖</p>
+    <button class="yes" onclick="showQuestion(event)">Open 💖</button>
+  </div>
+</div>
+
+<!-- QUESTION -->
+<div class="message-box" id="questionBox">
+  <h2>Vickyy 💕</h2>
+  <p>
+      Hey my sweetheart 💕<br>
+      You are my everything 💖<br>
+      My soulmate, my betterhalf,My Happiness<br>
+      my forever and always.<br>
+	  I don’t promise perfection,  
+      but I promise love — real, endless love 💞 <br>	  
+      I will love you till my last breath 💫
+    </p>
+  Do you love me?
+  <br><br>
+  <button class="yes" onclick="sayYes()">Yes 💖</button>
+  <button class="no" onclick="sayNo()">No 🙈</button>
+</div>
+
+<!-- YES -->
+<div class="message-box" id="yesBox">
+  <h2>I love you moreee 😘💖</h2>
+  <img src="C:\valtine day\love.jpg" alt="" class="love-photo">
+
+    <p>
+      Stay wid me forever Vickyy 💖<br><br>
+      I’ll hold your hand in happiness,  
+      stand beside you in tough times,  
+      and choose you every single day 💫 ,<br>
+      my heart belongs only to you ❤️<br><br>
+      Forever yours Love,<br>
+      <strong>Sankari 💕</strong>
+    </p>
+</div>
+
+<audio id="song">
+  <source src="your-song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function openLetter(){
+  document.querySelector('.envelope').style.animation='none';
+  document.getElementById('letter').style.display='block';
+}
+
+function showQuestion(e){
+  e.stopPropagation();
+  document.querySelector('.envelope').style.display='none';
+  document.getElementById('questionBox').style.display='block';
+}
+
+function sayYes(){
+  document.getElementById('questionBox').style.display='none';
+  document.getElementById('yesBox').style.display='block';
+
+  const song=document.getElementById('song');
+  song.volume=1.0;
+  song.play();
+}
+
+function sayNo(){
+  alert("No is not allowed 😜💖");
+}
+</script>
+
+</body>
+</html>
